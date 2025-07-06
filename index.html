@@ -18,7 +18,7 @@
   <!-- Hidden iframe for silent authentication -->
   <iframe
     id="silent-auth-frame"
-    src="https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
+    src="https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
     style="width:500; height:500; border:1;"></iframe>
 
   <script>
@@ -35,7 +35,7 @@
     // Timeout fallback
     setTimeout(() => {
       document.getElementById("status").innerHTML = 
-      "<div>Not logged in. Show login button:<br/><a href='https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f'>Login</a></div>";
+      "<div>Not logged in. Show login button:<br/><a href='https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f'>Login</a></div>";
     }, 3000);
   </script>
 </body>

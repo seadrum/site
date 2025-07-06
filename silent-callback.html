@@ -7,6 +7,7 @@
   <title>Silent Callback</title>
 </head>
 <body>
+  <H1>Silent callback page</H1>
   <script>
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -15,7 +16,7 @@
     window.parent.postMessage({
       type: "OIDC_CODE",
       code: code
-    }, "https://www.github.com/searum/site");
+    }, "https://www.github.io/seadrum/site");
   </script>
 </body>
 </html>
