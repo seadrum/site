@@ -1,0 +1,21 @@
+<!-- ============================================ -->
+<!-- Callback Page (e.g., https://app2.com/silent-callback) -->
+<!-- ============================================ -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Silent Callback</title>
+</head>
+<body>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    // Send code to parent window
+    window.parent.postMessage({
+      type: "OIDC_CODE",
+      code: code
+    }, "https://www.github.com/searum/site");
+  </script>
+</body>
+</html>
