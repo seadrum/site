@@ -25,6 +25,7 @@
     window.addEventListener("message", function (event) {
  //     if (event.origin !== "https://app2.com") return;
 
+      console.log("Received message from iframe:", event.data);
       if (event.data.type === "OIDC_CODE") {
         const code = event.data.code;
 
