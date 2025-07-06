@@ -22,22 +22,29 @@
     style="width:500; height:500; border:1;"></iframe>
 
   <script>
+    var code = null;
     window.addEventListener("message", function (event) {
  //     if (event.origin !== "https://app2.com") return;
 
       console.log("Received message from iframe:", event.data);
+      console.log("Received message type from iframe:", event.data.type);
       if (event.data.type === "OIDC_CODE") {
-        const code = event.data.code;
+        code = event.data.code;
 
         document.getElementById("status").innerText = "Received code: " + code;
       }
     });
 
+    function showLoginButtonIfNeeded()
+    {
+      if (!code) {
+        document.getElementById("status").innerHTML = 
+        "<div>Not logged in. Show login button:<br/><a href='https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f'>Login</a></div>";
+      }
+    }
+
     // Timeout fallback
-    setTimeout(() => {
-      document.getElementById("status").innerHTML = 
-      "<div>Not logged in. Show login button:<br/><a href='https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f'>Login</a></div>";
-    }, 3000);
+    setTimeout(showLoginButtonIfNeeded, 10000);
   </script>
 </body>
 </html>
