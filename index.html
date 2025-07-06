@@ -1,20 +1,15 @@
 <!-- 
- 1. The stytch cookies on the authorization page need to be set to same site: none
- 
+
+ // Requiered Stytch changes for silent login to work: 
+ 1. The stytch cookies on the authorization page need to be set to sameSite: none, and secured
 -->
 
-<!DOCTYPE html>
 <html>
-<head>
-  <title>Silent Auth with OIDC</title>
-</head>
+
 <body>
   <h1>Silent Login tester</h1>
   <div id="status">Checking login status...</div>
 
-  <script>
- //   src="https://auth.test.appcard.com/silent-check?client_id=app2-client&redirect_uri=/silent-callback.html&response_type=code&scope=openid&prompt=none"
-  </script>
   <!-- Hidden iframe for silent authentication -->
   <iframe
     id="silent-auth-frame"
@@ -24,13 +19,10 @@
   <script>
     var code = null;
     window.addEventListener("message", function (event) {
- //     if (event.origin !== "https://app2.com") return;
-
       console.log("Received message from iframe:", event.data);
       console.log("Received message type from iframe:", event.data.type);
       if (event.data.type === "OIDC_CODE") {
         code = event.data.code;
-
         document.getElementById("status").innerText = "Received code: " + code;
       }
     });
@@ -38,7 +30,7 @@
     function showLoginButtonIfNeeded()
     {
       if (!code) {
-        // the callback URL us dufferent from the one we set in the iframe, since we want to go back to the starting page
+        // the callback URL is dufferent from the one we set in the iframe, since we want to go back to the starting page
         document.getElementById("status").innerHTML = 
         "<div>Not logged in. Show login button:<br/><a href='https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f'>Login</a></div>";
       }
