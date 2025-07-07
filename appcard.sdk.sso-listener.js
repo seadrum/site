@@ -33,10 +33,10 @@ class AppCardSSOListener extends HTMLElement {
         window.addEventListener("message", function (event) {
             console.log("Received message from iframe:", event.data);
             console.log("Received message type from iframe:", event.data.type);
-            var code = null;
 
             if (event.data.type === "OIDC_CODE") {
-                code = event.data.code;
+                const code = event.data.code;
+                console.log("Received code:", event.data.code);
                 if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
                     window[onAuthCodeReceivedHandler](code);
                 }
