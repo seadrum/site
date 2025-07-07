@@ -29,7 +29,7 @@ class AppCardSSOListener extends HTMLElement {
     connectedCallback() {
         console.log('AppCardSSOListener connected');
         const onAuthCodeReceivedHandler = this.getAttribute('onAuthCodeReceived');
-        const code = null;
+        var code = null;
 
         //-- Listen to messages from the iframe
         window.addEventListener("message", function (event) {
@@ -54,7 +54,7 @@ class AppCardSSOListener extends HTMLElement {
             }
         }
 
-//        setTimeout(handleLoginFailed, 10000);
+        setTimeout(handleLoginFailed, 6000);
 }
     
 }
