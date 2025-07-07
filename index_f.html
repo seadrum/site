@@ -18,7 +18,10 @@ test URL: https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f15
 
     function receivedAuthCode(code) {
         console.log("Received auth code:", code);
-        document.getElementById("status").innerText = "Received auth code: " + code;
+        if (code)
+            document.getElementById("status").innerText = "You are logged in. Received auth code: " + code;
+        else 
+            document.getElementById("status").innerText = "You are not logged in.";
     }
 
   </script>

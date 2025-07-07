@@ -18,7 +18,6 @@ class AppCardSSOListener extends HTMLElement {
         }
         else {
             this/*.shadow*/.innerHTML = `
-                <!--button id="login-button">Test connect event</button-->
                 <iframe
                     id="silent-auth-frame"
                     src="https://auth.test.appcard.com/authorize?client_id=${clientIdProperty}&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
@@ -30,26 +29,32 @@ class AppCardSSOListener extends HTMLElement {
     connectedCallback() {
         console.log('AppCardSSOListener connected');
         const onAuthCodeReceivedHandler = this.getAttribute('onAuthCodeReceived');
+        const code = null;
 
-        this/*.shadow*/.querySelector('button').addEventListener('click', () => {
-            const code = 'abc123';
-            if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
-                window[onAuthCodeReceivedHandler](code);
-            }
-        }, false);
-
-
+        //-- Listen to messages from the iframe
         window.addEventListener("message", function (event) {
             console.log("Received message from iframe:", event.data);
  
             if (event.data.type === "OIDC_CODE") {
-                const code = event.data.code;
+                code = event.data.code;
                 console.log("Received code:", event.data.code);
                 if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
                     window[onAuthCodeReceivedHandler](code);
                 }
             }
-    })
+        })
+
+        //-- Timeout fallback
+        function handleLoginFailed() {
+            if (!code) {
+                if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
+                    window[onAuthCodeReceivedHandler](null);
+                }
+
+            }
+        }
+
+        setTimeout(handleLoginFailed, 5000);
 }
     
 }
