@@ -15,13 +15,8 @@ class AppCardSSOListener extends HTMLElement {
                 id="silent-auth-frame"
                 src="https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
                 style="${iframeStyle}"></iframe>
-        
-
-
         `;
     }
-
-
 
     connectedCallback() {
         console.log('AppCardSSOListener connected');
@@ -30,7 +25,7 @@ class AppCardSSOListener extends HTMLElement {
         this/*.shadow*/.querySelector('button').addEventListener('click', () => {
             const code = 'abc123';
             if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
-                window[onAuthCodeReceivedHandler](code); // Call the function by name from global scope
+                window[onAuthCodeReceivedHandler](code);
             }
         }, false);
 
@@ -41,10 +36,9 @@ class AppCardSSOListener extends HTMLElement {
             var code = null;
 
             if (event.data.type === "OIDC_CODE") {
-
-
+                code = event.data.code;
                 if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
-                    window[onAuthCodeReceivedHandler](code); // Call the function by name from global scope
+                    window[onAuthCodeReceivedHandler](code);
                 }
             }
                     /*
