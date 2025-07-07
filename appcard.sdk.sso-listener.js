@@ -11,15 +11,6 @@ class AppCardSSOListener extends HTMLElement {
 
         this/*.shadow*/.innerHTML = `
             <script>
-                console.log('Setting up iframe listener');
-                var code = null;
-                window.addEventListener("message", function (event) {
-                console.log("Received message from iframe:", event.data);
-                console.log("Received message type from iframe:", event.data.type);
-                if (event.data.type === "OIDC_CODE") {
-                    code = event.data.code;
-                    document.getElementById("status").innerText = "Received code: " + code;
-                }
             </script>
 
             <button id="login-button">test</button>
@@ -38,7 +29,32 @@ class AppCardSSOListener extends HTMLElement {
     connectedCallback() {
         console.log('AppCardSSOListener connected');
         this/*.shadow*/.querySelector('button').addEventListener('click', () => {
-        const code = 'abc123';
+//        const code = 'abc123';
+
+
+        console.log('Setting up iframe listener');
+        var code = null;
+        window.addEventListener("message", function (event) {
+            console.log("Received message from iframe:", event.data);
+            console.log("Received message type from iframe:", event.data.type);
+            if (event.data.type === "OIDC_CODE") {
+
+
+                        const onAuthCodeReceivedHandler = this.getAttribute('onAuthCodeReceived');
+
+                if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
+                    window[onAuthCodeReceivedHandler](code); // Call the function by name from global scope
+                }
+                    /*
+                code = event.data.code;
+                document.getElementById("status").innerText = "Received code: " + code;
+                */
+            }
+        }, false);
+
+
+
+/*
 
         // Handle onAuthCodeReceived attribute
         const onAuthCodeReceivedHandler = this.getAttribute('onAuthCodeReceived');
@@ -46,6 +62,8 @@ class AppCardSSOListener extends HTMLElement {
         if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
             window[onAuthCodeReceivedHandler](code); // Call the function by name from global scope
         }
+*/
+
 
         /*
         // (Optional) also dispatch real DOM event
