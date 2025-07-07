@@ -46,7 +46,7 @@ class AppCardSSOListener extends HTMLElement {
 
         //-- Timeout fallback
         function handleLoginFailed() {
-            if (!code) {
+            if (code===null) {
                 if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
                     window[onAuthCodeReceivedHandler](null);
                 }
@@ -54,7 +54,7 @@ class AppCardSSOListener extends HTMLElement {
             }
         }
 
-        setTimeout(handleLoginFailed, 5000);
+        setTimeout(handleLoginFailed, 10000);
 }
     
 }
