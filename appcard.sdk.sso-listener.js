@@ -18,7 +18,7 @@ class AppCardSSOListener extends HTMLElement {
         }
         else {
             this/*.shadow*/.innerHTML = `
-                <button id="login-button">Test connect event</button>
+                <!--button id="login-button">Test connect event</button-->
                 <iframe
                     id="silent-auth-frame"
                     src="https://auth.test.appcard.com/authorize?client_id=${clientIdProperty}&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"

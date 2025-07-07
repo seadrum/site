@@ -7,6 +7,8 @@ test URL: https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f15
 <body>
   <h1>SSO Listener</h1>
 
+  <div id="status">Checking login status...</div>
+
   <appcard-sso-listener 
     clientId="m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a"
     onAuthCodeReceived="receivedAuthCode"
@@ -15,7 +17,8 @@ test URL: https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f15
   <script>
 
     function receivedAuthCode(code) {
-      alert("Received code: " + code);
+        console.log("Received auth code:", code);
+        document.getElementById("status").innerText = "Received auth code: " + code;
     }
 
   </script>
