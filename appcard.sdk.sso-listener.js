@@ -54,7 +54,7 @@ class AppCardSSOListener extends HTMLElement {
             }
         }
 
-        setTimeout(handleLoginFailed, 10000);
+//        setTimeout(handleLoginFailed, 10000);
 }
     
 }
