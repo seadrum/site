@@ -4,18 +4,27 @@ class AppCardSSOListener extends HTMLElement {
         super();
         console.log('AppCardSSOListener constructor');
 
-//        this.shadow = this.attachShadow({ mode: 'open' });
+        //this.shadow = this.attachShadow({ mode: 'open' });
 
         const modeProperty = this.getAttribute('mode');
+        const clientIdProperty = this.getAttribute('clientId');
+
         const iframeStyle = modeProperty === 'debug' ? 'display:none; width:0; height:0; border:0;' : 'display:block; width:500px; height:500px; border:1px solid black;';
 
-        this/*.shadow*/.innerHTML = `
-            <button id="login-button">Test connect event</button>
-            <iframe
-                id="silent-auth-frame"
-                src="https://auth.test.appcard.com/authorize?client_id=m2m-client-test-4f155389-ec66-4ccc-a739-bae6c4fc2d2a&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
-                style="${iframeStyle}"></iframe>
-        `;
+        if (!clientIdProperty) {
+            console.error('AppCardSSOListener: clientId attribute is required');
+            this/*.shadow*/.innerHTML = `<p>Error: clientId attribute is required</p>`;
+            return;
+        }
+        else {
+            this/*.shadow*/.innerHTML = `
+                <button id="login-button">Test connect event</button>
+                <iframe
+                    id="silent-auth-frame"
+                    src="https://auth.test.appcard.com/authorize?client_id=${clientIdProperty}&response_type=code&scope=openid&state=274322b9-ea1d-459e-8c32-b4df9f513013&redirect_uri=https://seadrum.github.io/site/silent-callback.html&nonce=b2b0a38d-2e05-4944-bb47-ecb6c511eb5f"
+                    style="${iframeStyle}"></iframe>
+            `;
+        }
     }
 
     connectedCallback() {
@@ -32,8 +41,7 @@ class AppCardSSOListener extends HTMLElement {
 
         window.addEventListener("message", function (event) {
             console.log("Received message from iframe:", event.data);
-            console.log("Received message type from iframe:", event.data.type);
-
+ 
             if (event.data.type === "OIDC_CODE") {
                 const code = event.data.code;
                 console.log("Received code:", event.data.code);
@@ -41,32 +49,6 @@ class AppCardSSOListener extends HTMLElement {
                     window[onAuthCodeReceivedHandler](code);
                 }
             }
-                    /*
-                code = event.data.code;
-                document.getElementById("status").innerText = "Received code: " + code;
-                */
-
-
-
-/*
-
-        // Handle onAuthCodeReceived attribute
-        const onAuthCodeReceivedHandler = this.getAttribute('onAuthCodeReceived');
-
-        if (onAuthCodeReceivedHandler && typeof window[onAuthCodeReceivedHandler] === 'function') {
-            window[onAuthCodeReceivedHandler](code); // Call the function by name from global scope
-        }
-*/
-
-
-        /*
-        // (Optional) also dispatch real DOM event
-        this.dispatchEvent(new CustomEvent('authCodeReceived', {
-            code,
-            bubbles: true,
-            composed: true,
-        }));
-        */
     })
 }
     
