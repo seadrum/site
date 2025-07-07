@@ -9,7 +9,7 @@ class AppCardSSOListener extends HTMLElement {
         const modeProperty = this.getAttribute('mode');
         const clientIdProperty = this.getAttribute('clientId');
 
-        const iframeStyle = modeProperty === 'debug' ? 'display:none; width:0; height:0; border:0;' : 'display:block; width:500px; height:500px; border:1px solid black;';
+        const iframeStyle = modeProperty === 'debug' ? 'display:block; width:500px; height:500px; border:1px solid black;' : 'display:none; width:0; height:0; border:0;';
 
         if (!clientIdProperty) {
             console.error('AppCardSSOListener: clientId attribute is required');
