@@ -6,7 +6,13 @@
   <div id="status">Analyzing callback...</div>
 
   <script>
-      document.getElementById("status").innerText = "123";
+
+    // parse the URL parameters
+    //https://seadrum.github.io/site/index_login_callback.html?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Im0ybS1jbGllbnQtdGVzdC00ZjE1NTM4OS1lYzY2LTRjY2MtYTczOS1iYWU2YzRmYzJkMmEiLCJpYXQiOjE3NTI0MTQ5MzAsImV4cCI6MTc1MjQxNDk5MH0.WdRzhdbKXCyts9KPQPgnlvv7ykOFOhawyXMeS5bhVrY&state=274322b9-ea1d-459e-8c32-b4df9f513013
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+      document.getElementById("status").innerText = "code:" + code;
   </script>
 
 </body>
